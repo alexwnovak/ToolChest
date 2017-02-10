@@ -11,7 +11,8 @@ namespace ToolChest.LstCommand.UnitTests
       [Fact]
       public void Start_CurrentDirectoryHasOneFile_PrintsOneFile()
       {
-         var paths = ArrayHelper.Create( "File.txt" );
+         const string path = "File.txt";
+         var paths = ArrayHelper.Create( $@".\{path}" );
 
          // Arrange
          
@@ -27,7 +28,7 @@ namespace ToolChest.LstCommand.UnitTests
 
          // Assert
 
-         consoleMock.Verify( c => c.WriteLine( paths[0] ), Times.Once );
+         consoleMock.Verify( c => c.WriteLine( path ), Times.Once );
       }
    }
 }

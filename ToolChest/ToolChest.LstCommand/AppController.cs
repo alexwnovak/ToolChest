@@ -1,4 +1,5 @@
-﻿using SystemWrapper;
+﻿using System.IO;
+using SystemWrapper;
 using SystemWrapper.IO;
 
 namespace ToolChest.LstCommand
@@ -20,7 +21,9 @@ namespace ToolChest.LstCommand
 
          foreach ( string file in files )
          {
-            _console.WriteLine( file );
+            string trimmedFile = Path.GetFileName( file );
+
+            _console.WriteLine( trimmedFile );
          }
       }
    }
