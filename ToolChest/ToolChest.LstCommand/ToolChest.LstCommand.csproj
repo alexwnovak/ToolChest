@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="AppController.cs" />
     <Compile Include="FileDescriptor.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="IFileSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
