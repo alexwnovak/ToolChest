@@ -1,5 +1,4 @@
 ﻿using SystemWrapper;
-using SystemWrapper.IO;
 
 namespace ToolChest.LstCommand
 {
@@ -7,7 +6,7 @@ namespace ToolChest.LstCommand
    {
       private static void Main( string[] args )
       {
-         var directoryWrap = new DirectoryWrap();
+         var directoryWrap = new FileSystem();
          var consoleWrap = new ConsoleWrap();
 
          var appController = new AppController( directoryWrap, consoleWrap );

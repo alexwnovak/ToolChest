@@ -6,24 +6,27 @@ namespace ToolChest.LstCommand
 {
    public class AppController
    {
-      private readonly IDirectoryWrap _directory;
+      private readonly IFileSystem _fileSystem;
       private readonly IConsoleWrap _console;
 
-      public AppController( IDirectoryWrap directory, IConsoleWrap console )
+      public AppController( IFileSystem fileSystem, IConsoleWrap console )
       {
-         _directory = directory;
+         _fileSystem = fileSystem;
          _console = console;
       }
 
       public void Start()
       {
-         var files = _directory.GetFiles( "." );
+         var fileDescriptors = _fileSystem.GetFiles( "." );
 
-         foreach ( string file in files )
+         foreach ( var fileDescriptor in fileDescriptors )
          {
-            string trimmedFile = Path.GetFileName( file );
+            string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+            string sizeString = $"{fileDescriptor.Size,3}B";
 
-            _console.WriteLine( trimmedFile );
+            string wholeLine = $"{sizeString}  {trimmedFile}";
+
+            _console.WriteLine( wholeLine );
          }
       }
    }
