@@ -1,4 +1,4 @@
-﻿namespace ToolChest
+﻿namespace ToolChest.LstCommand
 {
    internal static class Program
    {
