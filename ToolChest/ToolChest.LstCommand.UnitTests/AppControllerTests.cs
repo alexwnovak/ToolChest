@@ -9,6 +9,45 @@ namespace ToolChest.LstCommand.UnitTests
    public class AppControllerTests
    {
       [Fact]
+      public void Start_HasNoArguments_GetsFilesFromTheCurrentPath()
+      {
+         // Arrange
+
+         var fileSystemMock = new Mock<IFileSystem>();
+         var consoleMock = new Mock<IConsoleWrap>();
+
+         // Act
+
+         var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
+
+         appController.Start( null );
+
+         // Assert
+
+         fileSystemMock.Verify( fs => fs.GetFiles( "." ), Times.Once );
+      }
+
+      [Fact]
+      public void Start_HasPathArgument_GetsFilesFromThePath()
+      {
+         const string path = @"C:\SomePath";
+         // Arrange
+
+         var fileSystemMock = new Mock<IFileSystem>();
+         var consoleMock = new Mock<IConsoleWrap>();
+
+         // Act
+
+         var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
+
+         appController.Start( ArrayHelper.Create( path ) );
+
+         // Assert
+
+         fileSystemMock.Verify( fs => fs.GetFiles( path ), Times.Once );
+      }
+
+      [Fact]
       public void Start_CurrentDirectoryHasOneFile_PrintsNameAndSizeWithCorrectSpacing()
       {
          var fileDescriptor = new FileDescriptor( @"C:\Temp\File.txt", 560 );
@@ -26,7 +65,7 @@ namespace ToolChest.LstCommand.UnitTests
 
          var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
 
-         appController.Start();
+         appController.Start( null );
 
          // Assert
 
@@ -52,7 +91,7 @@ namespace ToolChest.LstCommand.UnitTests
 
          var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
 
-         appController.Start();
+         appController.Start( null );
 
          // Assert
 

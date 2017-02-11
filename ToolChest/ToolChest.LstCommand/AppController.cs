@@ -14,9 +14,16 @@ namespace ToolChest.LstCommand
          _console = console;
       }
 
-      public void Start()
+      public void Start( string[] arguments )
       {
-         var fileDescriptors = _fileSystem.GetFiles( "." );
+         string path = ".";
+
+         if ( arguments?.Length > 0 )
+         {
+            path = arguments[0];
+         }
+
+         var fileDescriptors = _fileSystem.GetFiles( path );
          long totalSize = 0;
 
          foreach ( var fileDescriptor in fileDescriptors )
