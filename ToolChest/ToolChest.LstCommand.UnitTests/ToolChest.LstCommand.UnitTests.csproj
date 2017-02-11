@@ -80,6 +80,7 @@
     <Compile Include="AppControllerTests.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SizeFormatterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToolChest.LstCommand\ToolChest.LstCommand.csproj">
