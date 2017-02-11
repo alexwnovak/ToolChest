@@ -17,9 +17,12 @@ namespace ToolChest.LstCommand
       public void Start()
       {
          var fileDescriptors = _fileSystem.GetFiles( "." );
+         long totalSize = 0;
 
          foreach ( var fileDescriptor in fileDescriptors )
          {
+            totalSize += fileDescriptor.Size;
+
             string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
             string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
@@ -27,6 +30,9 @@ namespace ToolChest.LstCommand
 
             _console.WriteLine( wholeLine );
          }
+
+         string totalSizeString = SizeFormatter.Format( totalSize );
+         _console.WriteLine( $"{totalSizeString}  Total size" );
       }
    }
 }
