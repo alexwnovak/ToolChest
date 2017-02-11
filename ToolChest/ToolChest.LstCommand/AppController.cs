@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using SystemWrapper;
-using SystemWrapper.IO;
 
 namespace ToolChest.LstCommand
 {
@@ -22,7 +21,7 @@ namespace ToolChest.LstCommand
          foreach ( var fileDescriptor in fileDescriptors )
          {
             string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
-            string sizeString = $"{fileDescriptor.Size,3}B";
+            string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
             string wholeLine = $"{sizeString}  {trimmedFile}";
 

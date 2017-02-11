@@ -2,7 +2,6 @@
 using Xunit;
 using Moq;
 using SystemWrapper;
-using SystemWrapper.IO;
 using ToolChest.LstCommand.UnitTests.Helpers;
 
 namespace ToolChest.LstCommand.UnitTests
@@ -15,7 +14,7 @@ namespace ToolChest.LstCommand.UnitTests
          var fileDescriptor = new FileDescriptor( @"C:\Temp\File.txt", 560 );
          var paths = ArrayHelper.Create( fileDescriptor );
 
-         const string wholeLine = "560B  File.txt";
+         const string wholeLine = "560 B   File.txt";
 
          // Arrange
 
