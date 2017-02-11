@@ -32,5 +32,31 @@ namespace ToolChest.LstCommand.UnitTests
 
          consoleMock.Verify( c => c.WriteLine( wholeLine ), Times.Once );
       }
+
+      [Fact]
+      public void Start_FindsTwoFiles_PrintsTheTotalSize()
+      {
+         var fileDescriptor = new FileDescriptor( @"C:\Temp\File.txt", 1000 );
+         var fileDescriptor2 = new FileDescriptor( @"C:\Temp\File.txt", 2234 );
+         var paths = ArrayHelper.Create( fileDescriptor, fileDescriptor2 );
+
+         const string wholeLine = "  3 KB  Total size";
+
+         // Arrange
+
+         var fileSystemMock = new Mock<IFileSystem>();
+         fileSystemMock.Setup( fs => fs.GetFiles( "." ) ).Returns( paths );
+         var consoleMock = new Mock<IConsoleWrap>();
+
+         // Act
+
+         var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
+
+         appController.Start();
+
+         // Assert
+
+         consoleMock.Verify( c => c.WriteLine( wholeLine ), Times.Once );
+      }
    }
 }
