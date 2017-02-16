@@ -7,9 +7,15 @@ namespace ToolChest.LstCommand
    {
       public FileDescriptor[] GetFiles( string path )
       {
-         return ( from f in Directory.GetFiles( path )
-                  let fi = new FileInfo( f )
-                  select new FileDescriptor( fi.FullName, fi.Length ) ).ToArray();
+         var files = from f in Directory.GetFiles( path )
+                     let fi = new FileInfo( f )
+                     select new FileDescriptor( fi.FullName, fi.Length, false );
+
+         var directories = from d in Directory.GetDirectories( path )
+                           let di = new DirectoryInfo( d )
+                           select new FileDescriptor( di.Name, 0, true );
+
+         return files.Concat( directories ).ToArray();
       }
    }
 }

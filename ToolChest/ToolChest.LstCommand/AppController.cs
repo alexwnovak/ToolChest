@@ -28,12 +28,22 @@ namespace ToolChest.LstCommand
 
          foreach ( var fileDescriptor in fileDescriptors )
          {
-            totalSize += fileDescriptor.Size;
+            string wholeLine;
 
-            string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
-            string sizeString = SizeFormatter.Format( fileDescriptor.Size );
+            if ( fileDescriptor.IsDirectory )
+            {
+               string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+               wholeLine = $"        {trimmedFile}/";
+            }
+            else
+            {
+               string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
 
-            string wholeLine = $"{sizeString}  {trimmedFile}";
+               totalSize += fileDescriptor.Size;
+               string sizeString = SizeFormatter.Format( fileDescriptor.Size );
+
+               wholeLine = $"{sizeString}  {trimmedFile}";
+            }
 
             _console.WriteLine( wholeLine );
          }
