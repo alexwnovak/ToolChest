@@ -52,6 +52,8 @@
     <Compile Include="FileDescriptor.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="IFileSystem.cs" />
+    <Compile Include="IOutputController.cs" />
+    <Compile Include="OutputController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeFormatter.cs" />
