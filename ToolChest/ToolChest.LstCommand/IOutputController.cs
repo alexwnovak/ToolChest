@@ -2,5 +2,6 @@
 {
    public interface IOutputController
    {
+      void WriteFormatted( string line );
    }
 }
