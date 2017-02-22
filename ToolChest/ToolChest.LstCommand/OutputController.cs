@@ -23,7 +23,11 @@ namespace ToolChest.LstCommand
             {
                char color = line[++index];
 
-               if ( color == 'b' )
+               if ( color == '_' )
+               {
+                  _console.ForegroundColor = ConsoleColor.Black;
+               }
+               else if ( color == 'b' )
                {
                   _console.ForegroundColor = ConsoleColor.DarkBlue;
                }

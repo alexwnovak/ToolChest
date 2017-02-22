@@ -27,10 +27,11 @@ namespace ToolChest.LstCommand.UnitTests
          consoleMock.Verify( c => c.Write( line ), Times.Once() );
       }
 
-      [Fact]
-      public void WriteFormatted_HasDarkBlueFormatting_AllTextIsPrintedBlue()
+      [Theory]
+      [InlineData( "{{_", ConsoleColor.Black )]
+      [InlineData( "{{b", ConsoleColor.DarkBlue )]
+      public void WriteFormatted_HasColorFormatting_TextIsPrintedWithColor( string prefix, ConsoleColor expectedColor )
       {
-         const string formatting = "{{b";
          const string text = "Text with no formatting";
 
          // Arrange
@@ -41,11 +42,11 @@ namespace ToolChest.LstCommand.UnitTests
 
          var outputController = new OutputController( consoleMock.Object );
 
-         outputController.WriteFormatted( $"{formatting}{text}" );
+         outputController.WriteFormatted( $"{prefix}{text}" );
 
          // Assert
 
-         consoleMock.VerifySet( c => c.ForegroundColor = ConsoleColor.DarkBlue, Times.Once() );
+         consoleMock.VerifySet( c => c.ForegroundColor = expectedColor, Times.Once() );
          consoleMock.Verify( c => c.Write( text ), Times.Once() );
 
       }
