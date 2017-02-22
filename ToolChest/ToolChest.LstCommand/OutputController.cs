@@ -21,16 +21,9 @@ namespace ToolChest.LstCommand
          {
             if ( line[index] == '{' && line[++index] == '{' )
             {
-               char color = line[++index];
+               int decimalValue = HexHelper.HexToInt( line[++index] );
 
-               if ( color == '_' )
-               {
-                  _console.ForegroundColor = ConsoleColor.Black;
-               }
-               else if ( color == 'b' )
-               {
-                  _console.ForegroundColor = ConsoleColor.DarkBlue;
-               }
+               _console.ForegroundColor = (ConsoleColor) decimalValue;
 
                continue;
             }

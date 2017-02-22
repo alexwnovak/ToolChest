@@ -51,6 +51,7 @@
     <Compile Include="AppController.cs" />
     <Compile Include="FileDescriptor.cs" />
     <Compile Include="FileSystem.cs" />
+    <Compile Include="HexHelper.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="OutputController.cs" />
