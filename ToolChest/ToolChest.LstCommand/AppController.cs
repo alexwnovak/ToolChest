@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using SystemWrapper;
 
 namespace ToolChest.LstCommand
@@ -29,10 +30,13 @@ namespace ToolChest.LstCommand
          foreach ( var fileDescriptor in fileDescriptors )
          {
             string wholeLine;
+            var oldColor = _console.ForegroundColor;
 
             if ( fileDescriptor.IsDirectory )
             {
                string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+
+               _console.ForegroundColor = ConsoleColor.DarkYellow;
                wholeLine = $"        {trimmedFile}/";
             }
             else
@@ -43,9 +47,13 @@ namespace ToolChest.LstCommand
                string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
                wholeLine = $"{sizeString}  {trimmedFile}";
+
+               string extension = Path.GetExtension( trimmedFile );
+               _console.ForegroundColor = ColorProvider.GetColor( extension );
             }
 
             _console.WriteLine( wholeLine );
+            _console.ForegroundColor = oldColor;
          }
 
          string totalSizeString = SizeFormatter.Format( totalSize );
