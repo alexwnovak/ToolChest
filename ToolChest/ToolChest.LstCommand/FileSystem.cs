@@ -15,7 +15,7 @@ namespace ToolChest.LstCommand
                            let di = new DirectoryInfo( d )
                            select new FileDescriptor( di.Name, 0, true );
 
-         return files.Concat( directories ).ToArray();
+         return directories.Concat( files ).ToArray();
       }
    }
 }
