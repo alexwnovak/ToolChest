@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,9 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="ColorProvider.cs" />
     <Compile Include="FileDescriptor.cs" />
     <Compile Include="FileSystem.cs" />
+    <Compile Include="HexHelper.cs" />
     <Compile Include="IFileSystem.cs" />
+    <Compile Include="IOutputController.cs" />
+    <Compile Include="OutputController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeFormatter.cs" />
