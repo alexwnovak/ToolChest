@@ -46,7 +46,7 @@ namespace ToolChest.LstCommand
                totalSize += fileDescriptor.Size;
                string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
-               wholeLine = $"{sizeString}  {trimmedFile}";
+               wholeLine = $"{sizeString} │ {trimmedFile}";
 
                string extension = Path.GetExtension( trimmedFile );
                _console.ForegroundColor = ColorProvider.GetColor( extension );

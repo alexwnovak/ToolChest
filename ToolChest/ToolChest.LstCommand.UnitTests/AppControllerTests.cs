@@ -53,7 +53,7 @@ namespace ToolChest.LstCommand.UnitTests
          var fileDescriptor = new FileDescriptor( @"C:\Temp\File.txt", 560, false );
          var paths = ArrayHelper.Create( fileDescriptor );
 
-         const string wholeLine = "560 B   File.txt";
+         const string wholeLine = "560 B  │ File.txt";
 
          // Arrange
 
@@ -79,7 +79,7 @@ namespace ToolChest.LstCommand.UnitTests
          var fileDescriptor2 = new FileDescriptor( @"C:\Temp\File.txt", 2234, false );
          var paths = ArrayHelper.Create( fileDescriptor, fileDescriptor2 );
 
-         const string wholeLine = "  3 KB  Total size";
+         const string wholeLine = "3.2 KB  Total size";
 
          // Arrange
 
