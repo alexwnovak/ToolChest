@@ -37,7 +37,13 @@ namespace ToolChest.LstCommand
                string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
 
                _console.ForegroundColor = ConsoleColor.DarkYellow;
-               wholeLine = $"        {trimmedFile}/";
+               _console.Write( "Folder" );
+
+               _console.ForegroundColor = ConsoleColor.DarkGray;
+               _console.Write( " | " );
+
+               _console.ForegroundColor = ConsoleColor.DarkYellow;
+               _console.WriteLine( trimmedFile + "/" );
             }
             else
             {
@@ -46,18 +52,36 @@ namespace ToolChest.LstCommand
                totalSize += fileDescriptor.Size;
                string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
-               wholeLine = $"{sizeString} │ {trimmedFile}";
-
                string extension = Path.GetExtension( trimmedFile );
-               _console.ForegroundColor = ColorProvider.GetColor( extension );
+               var extensionColor = ColorProvider.GetColor( extension );
+
+               _console.ForegroundColor = extensionColor;
+               _console.Write( sizeString );
+
+               _console.ForegroundColor = ConsoleColor.DarkGray;
+               _console.Write( " | " );
+
+               _console.ForegroundColor = extensionColor; 
+               _console.WriteLine( trimmedFile );
             }
 
-            _console.WriteLine( wholeLine );
             _console.ForegroundColor = oldColor;
          }
 
          string totalSizeString = SizeFormatter.Format( totalSize );
-         _console.WriteLine( $"{totalSizeString}  Total size" );
+
+         _console.ForegroundColor = ConsoleColor.DarkGray;
+         _console.WriteLine( "=======+===========" );
+
+         _console.ForegroundColor = ConsoleColor.Gray;
+         _console.Write( totalSizeString );
+         
+         _console.ForegroundColor = ConsoleColor.DarkGray;
+         _console.Write( " | " );
+
+         _console.ForegroundColor = ConsoleColor.Gray;
+         _console.WriteLine( "Total size" );
+         //| Total size" );
       }
    }
 }
