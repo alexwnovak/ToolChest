@@ -29,7 +29,6 @@ namespace ToolChest.LstCommand
 
          foreach ( var fileDescriptor in fileDescriptors )
          {
-            string wholeLine;
             var oldColor = _console.ForegroundColor;
 
             if ( fileDescriptor.IsDirectory )
@@ -81,7 +80,6 @@ namespace ToolChest.LstCommand
 
          _console.ForegroundColor = ConsoleColor.Gray;
          _console.WriteLine( "Total size" );
-         //| Total size" );
       }
    }
 }
