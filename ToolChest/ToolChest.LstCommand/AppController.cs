@@ -59,7 +59,7 @@ namespace ToolChest.LstCommand
                _console.Write( sizeString );
 
                _console.ForegroundColor = ConsoleColor.DarkGray;
-               _console.Write( " │ " );
+               _console.Write( " | " );
 
                _console.ForegroundColor = extensionColor; 
                _console.WriteLine( trimmedFile );
@@ -71,7 +71,7 @@ namespace ToolChest.LstCommand
          string totalSizeString = SizeFormatter.Format( totalSize );
 
          _console.ForegroundColor = ConsoleColor.DarkGray;
-         _console.WriteLine( "==================" );
+         _console.WriteLine( "=======+===========" );
 
          _console.ForegroundColor = ConsoleColor.Gray;
          _console.Write( totalSizeString );
