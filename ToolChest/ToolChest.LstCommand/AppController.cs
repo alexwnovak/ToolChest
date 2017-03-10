@@ -37,7 +37,13 @@ namespace ToolChest.LstCommand
                string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
 
                _console.ForegroundColor = ConsoleColor.DarkYellow;
-               _console.WriteLine( $"        {trimmedFile}/" );
+               _console.Write( "Folder" );
+
+               _console.ForegroundColor = ConsoleColor.DarkGray;
+               _console.Write( " | " );
+
+               _console.ForegroundColor = ConsoleColor.DarkYellow;
+               _console.WriteLine( trimmedFile + "/" );
             }
             else
             {

@@ -98,29 +98,29 @@ namespace ToolChest.LstCommand.UnitTests
       //   consoleMock.Verify( c => c.WriteLine( wholeLine ), Times.Once );
       //}
 
-      [Fact]
-      public void Start_FindsADirectory_PrintsTheNameWithASlash()
-      {
-         var fileDescriptor = new FileDescriptor( @"C:\Temp\TestDirectory", 0, true );
-         var paths = ArrayHelper.Create( fileDescriptor );
+      //[Fact]
+      //public void Start_FindsADirectory_PrintsTheNameWithASlash()
+      //{
+      //   var fileDescriptor = new FileDescriptor( @"C:\Temp\TestDirectory", 0, true );
+      //   var paths = ArrayHelper.Create( fileDescriptor );
 
-         const string wholeLine = "        TestDirectory/";
+      //   const string wholeLine = "        TestDirectory/";
 
-         // Arrange
+      //   // Arrange
 
-         var fileSystemMock = new Mock<IFileSystem>();
-         fileSystemMock.Setup( fs => fs.GetFiles( "." ) ).Returns( paths );
-         var consoleMock = new Mock<IConsoleWrap>();
+      //   var fileSystemMock = new Mock<IFileSystem>();
+      //   fileSystemMock.Setup( fs => fs.GetFiles( "." ) ).Returns( paths );
+      //   var consoleMock = new Mock<IConsoleWrap>();
 
-         // Act
+      //   // Act
 
-         var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
+      //   var appController = new AppController( fileSystemMock.Object, consoleMock.Object );
 
-         appController.Start( null );
+      //   appController.Start( null );
 
-         // Assert
+      //   // Assert
 
-         consoleMock.Verify( c => c.WriteLine( wholeLine ), Times.Once );
-      }
+      //   consoleMock.Verify( c => c.WriteLine( wholeLine ), Times.Once );
+      //}
    }
 }
