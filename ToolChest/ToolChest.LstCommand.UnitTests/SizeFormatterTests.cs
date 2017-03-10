@@ -52,5 +52,85 @@ namespace ToolChest.LstCommand.UnitTests
 
          sizeString.Should().Be( " 12 TB" );
       }
+
+      [Fact]
+      public void Format_SizeIs1500Bytes_ReturnsDecimal()
+      {
+         string sizeString = SizeFormatter.Format( 1500 );
+
+         sizeString.Should().Be( "1.5 KB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs1600Kilobytes_ReturnsDecimal()
+      {
+         string sizeString = SizeFormatter.Format( 1600000 );
+
+         sizeString.Should().Be( "1.6 MB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs2600Megabytes_ReturnsDecimal()
+      {
+         string sizeString = SizeFormatter.Format( 2600000000 );
+
+         sizeString.Should().Be( "2.6 GB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs5200Gigabytes_ReturnsDecimal()
+      {
+         string sizeString = SizeFormatter.Format( 5200000000000L );
+
+         sizeString.Should().Be( "5.2 TB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs19986KB_ReturnsNoDecimalPortion()
+      {
+         string sizeString = SizeFormatter.Format( 9986 );
+
+         sizeString.Should().Be( " 10 KB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs19986MB_ReturnsNoDecimalPortion()
+      {
+         string sizeString = SizeFormatter.Format( 9986000 );
+
+         sizeString.Should().Be( " 10 MB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs19986GB_ReturnsNoDecimalPortion()
+      {
+         string sizeString = SizeFormatter.Format( 9986000000 );
+
+         sizeString.Should().Be( " 10 GB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs19986TB_ReturnsNoDecimalPortion()
+      {
+         string sizeString = SizeFormatter.Format( 9986000000000L );
+
+         sizeString.Should().Be( " 10 TB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs1000Bytes_Returns1KB()
+      {
+         string sizeString = SizeFormatter.Format( 1000 );
+
+         sizeString.Should().Be( "1.0 KB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs512KB_Returns512KB()
+      {
+         string sizeString = SizeFormatter.Format( 512000 );
+
+         sizeString.Should().Be( "512 KB" );
+      }
    }
 }
