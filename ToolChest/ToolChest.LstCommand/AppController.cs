@@ -71,7 +71,7 @@ namespace ToolChest.LstCommand
          string totalSizeString = SizeFormatter.Format( totalSize );
 
          _console.ForegroundColor = ConsoleColor.DarkGray;
-         _console.WriteLine( "=======+===========" );
+         _console.WriteLine( "-------+-----------" );
 
          _console.ForegroundColor = ConsoleColor.Gray;
          _console.Write( totalSizeString );
