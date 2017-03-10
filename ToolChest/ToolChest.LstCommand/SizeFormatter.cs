@@ -1,23 +1,23 @@
-﻿using System.Globalization;
-
-namespace ToolChest.LstCommand
+﻿namespace ToolChest.LstCommand
 {
    public static class SizeFormatter
    {
       private static string GetDecimal( long size, double divisor, string label )
       {
-         double decimalSize = size / divisor;
+         string decimalString = (size / divisor).ToString( "0.0" );
+         var parts = decimalString.Split( '.' );
 
-         if ( decimalSize < 10 )
+         if ( parts[0].Length == 1 )
          {
-            return $"{decimalSize.ToString( CultureInfo.InvariantCulture ).Substring( 0, 3 )} {label}";
-         }
-         if ( decimalSize < 100 )
-         {
-            return $" {(int) decimalSize} {label}";
+            return $"{decimalString} {label}";
          }
 
-         return $"{(int) decimalSize} {label}";
+         if ( parts[0].Length == 2 )
+         {
+            return $" {parts[0]} {label}";
+         }
+
+         return $"{parts[0]} {label}";
       }
 
       public static string Format( long size )

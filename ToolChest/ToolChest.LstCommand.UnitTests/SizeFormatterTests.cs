@@ -90,7 +90,7 @@ namespace ToolChest.LstCommand.UnitTests
       {
          string sizeString = SizeFormatter.Format( 9986 );
 
-         sizeString.Should().Be( "9.9 KB" );
+         sizeString.Should().Be( " 10 KB" );
       }
 
       [Fact]
@@ -98,7 +98,7 @@ namespace ToolChest.LstCommand.UnitTests
       {
          string sizeString = SizeFormatter.Format( 9986000 );
 
-         sizeString.Should().Be( "9.9 MB" );
+         sizeString.Should().Be( " 10 MB" );
       }
 
       [Fact]
@@ -106,7 +106,7 @@ namespace ToolChest.LstCommand.UnitTests
       {
          string sizeString = SizeFormatter.Format( 9986000000 );
 
-         sizeString.Should().Be( "9.9 GB" );
+         sizeString.Should().Be( " 10 GB" );
       }
 
       [Fact]
@@ -114,7 +114,23 @@ namespace ToolChest.LstCommand.UnitTests
       {
          string sizeString = SizeFormatter.Format( 9986000000000L );
 
-         sizeString.Should().Be( "9.9 TB" );
+         sizeString.Should().Be( " 10 TB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs1000Bytes_Returns1KB()
+      {
+         string sizeString = SizeFormatter.Format( 1000 );
+
+         sizeString.Should().Be( "1.0 KB" );
+      }
+
+      [Fact]
+      public void Format_SizeIs512KB_Returns512KB()
+      {
+         string sizeString = SizeFormatter.Format( 512000 );
+
+         sizeString.Should().Be( "512 KB" );
       }
    }
 }
