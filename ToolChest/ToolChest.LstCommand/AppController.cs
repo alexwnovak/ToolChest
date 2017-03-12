@@ -35,53 +35,60 @@ namespace ToolChest.LstCommand
          var fileDescriptors = _fileSystem.GetFiles( path );
          long totalSize = 0;
 
-         foreach ( var fileDescriptor in fileDescriptors )
+         if ( fileDescriptors.Length == 0 )
          {
-            var oldColor = _console.ForegroundColor;
-
-            if ( fileDescriptor.IsDirectory )
+            _console.WriteLine( "Empty" );
+         }
+         else
+         {
+            foreach ( var fileDescriptor in fileDescriptors )
             {
-               string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+               var oldColor = _console.ForegroundColor;
 
-               _console.ForegroundColor = ColorProvider.FolderColor;
-               _console.Write( "Folder" );
-
-               _console.ForegroundColor = ConsoleColor.DarkGray;
-               _console.Write( " | " );
-
-               _console.ForegroundColor = fileDescriptor.IsHidden ? ColorProvider.HiddenColor : ColorProvider.FolderColor;
-               _console.WriteLine( trimmedFile + "/" );
-            }
-            else
-            {
-               string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
-
-               totalSize += fileDescriptor.Size;
-               string sizeString = SizeFormatter.Format( fileDescriptor.Size );
-
-               ConsoleColor extensionColor;
-
-               if ( fileDescriptor.IsHidden )
+               if ( fileDescriptor.IsDirectory )
                {
-                  extensionColor = ColorProvider.HiddenColor;
+                  string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+
+                  _console.ForegroundColor = ColorProvider.FolderColor;
+                  _console.Write( "Folder" );
+
+                  _console.ForegroundColor = ConsoleColor.DarkGray;
+                  _console.Write( " | " );
+
+                  _console.ForegroundColor = fileDescriptor.IsHidden ? ColorProvider.HiddenColor : ColorProvider.FolderColor;
+                  _console.WriteLine( trimmedFile + "/" );
                }
                else
                {
-                  string extension = Path.GetExtension( trimmedFile );
-                  extensionColor = ColorProvider.GetColor( extension );
+                  string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+
+                  totalSize += fileDescriptor.Size;
+                  string sizeString = SizeFormatter.Format( fileDescriptor.Size );
+
+                  ConsoleColor extensionColor;
+
+                  if ( fileDescriptor.IsHidden )
+                  {
+                     extensionColor = ColorProvider.HiddenColor;
+                  }
+                  else
+                  {
+                     string extension = Path.GetExtension( trimmedFile );
+                     extensionColor = ColorProvider.GetColor( extension );
+                  }
+
+                  _console.ForegroundColor = extensionColor;
+                  _console.Write( sizeString );
+
+                  _console.ForegroundColor = ConsoleColor.DarkGray;
+                  _console.Write( " | " );
+
+                  _console.ForegroundColor = extensionColor;
+                  _console.WriteLine( trimmedFile );
                }
 
-               _console.ForegroundColor = extensionColor;
-               _console.Write( sizeString );
-
-               _console.ForegroundColor = ConsoleColor.DarkGray;
-               _console.Write( " | " );
-
-               _console.ForegroundColor = extensionColor;
-               _console.WriteLine( trimmedFile );
+               _console.ForegroundColor = oldColor;
             }
-
-            _console.ForegroundColor = oldColor;
          }
 
          string totalSizeString = SizeFormatter.Format( totalSize );
