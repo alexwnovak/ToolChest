@@ -24,6 +24,14 @@ namespace ToolChest.LstCommand
             path = arguments[0];
          }
 
+         string fullPath = Path.GetFullPath( path );
+         _console.WriteLine( fullPath );
+
+         _console.ForegroundColor = ConsoleColor.DarkGray;
+         _console.WriteLine( new string( '-', fullPath.Length ) );
+
+         _console.ForegroundColor = ConsoleColor.Gray;
+
          var fileDescriptors = _fileSystem.GetFiles( path );
          long totalSize = 0;
 
