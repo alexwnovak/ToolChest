@@ -34,5 +34,17 @@ namespace ToolChest.LstCommand
          string output = stringBuilder.ToString();
          _console.Write( output );
       }
+
+      public void WriteHeader( string path )
+      {
+         var oldColor = _console.ForegroundColor;
+
+         _console.WriteLine( path );
+
+         _console.ForegroundColor = ConsoleColor.DarkGray;
+         _console.WriteLine( new string( '-', path.Length ) );
+
+         _console.ForegroundColor = oldColor;
+      }
    }
 }

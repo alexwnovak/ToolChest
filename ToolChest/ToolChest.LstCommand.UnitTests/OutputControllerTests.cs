@@ -68,7 +68,27 @@ namespace ToolChest.LstCommand.UnitTests
 
          consoleMock.VerifySet( c => c.ForegroundColor = expectedColor, Times.Once() );
          consoleMock.Verify( c => c.Write( text ), Times.Once() );
+      }
 
+      [Fact]
+      public void WriteHeader_HasValidPath_WritesPathAndSeparator()
+      {
+         const string path = @"C:\Temp";
+
+         // Arrange
+
+         var consoleMock = new Mock<IConsoleWrap>();
+
+         // Act
+
+         var outputController = new OutputController( consoleMock.Object );
+
+         outputController.WriteHeader( path );
+
+         // Assert
+
+         consoleMock.Verify( c => c.WriteLine( path ), Times.Once() );
+         consoleMock.Verify( c => c.WriteLine( It.Is<string>( s => s.Length == path.Length ) ) );
       }
    }
 }
