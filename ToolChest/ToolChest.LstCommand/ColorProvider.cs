@@ -24,6 +24,8 @@ namespace ToolChest.LstCommand
          return colorTable;
       }
 
+      public static ConsoleColor HiddenColor => ConsoleColor.DarkGray;
+
       public static ConsoleColor GetColor( string extension )
       {
          extension = extension.ToLower();

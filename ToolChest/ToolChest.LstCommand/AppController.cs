@@ -41,7 +41,7 @@ namespace ToolChest.LstCommand
                _console.ForegroundColor = ConsoleColor.DarkGray;
                _console.Write( " | " );
 
-               _console.ForegroundColor = ConsoleColor.DarkYellow;
+               _console.ForegroundColor = fileDescriptor.IsHidden ? ColorProvider.HiddenColor : ConsoleColor.DarkYellow;
                _console.WriteLine( trimmedFile + "/" );
             }
             else
@@ -51,8 +51,17 @@ namespace ToolChest.LstCommand
                totalSize += fileDescriptor.Size;
                string sizeString = SizeFormatter.Format( fileDescriptor.Size );
 
-               string extension = Path.GetExtension( trimmedFile );
-               var extensionColor = ColorProvider.GetColor( extension );
+               ConsoleColor extensionColor;
+
+               if ( fileDescriptor.IsHidden )
+               {
+                  extensionColor = ColorProvider.HiddenColor;
+               }
+               else
+               {
+                  string extension = Path.GetExtension( trimmedFile );
+                  extensionColor = ColorProvider.GetColor( extension );
+               }
 
                _console.ForegroundColor = extensionColor;
                _console.Write( sizeString );
@@ -60,7 +69,7 @@ namespace ToolChest.LstCommand
                _console.ForegroundColor = ConsoleColor.DarkGray;
                _console.Write( " | " );
 
-               _console.ForegroundColor = extensionColor; 
+               _console.ForegroundColor = extensionColor;
                _console.WriteLine( trimmedFile );
             }
 
@@ -74,7 +83,7 @@ namespace ToolChest.LstCommand
 
          _console.ForegroundColor = ConsoleColor.Gray;
          _console.Write( totalSizeString );
-         
+
          _console.ForegroundColor = ConsoleColor.DarkGray;
          _console.Write( " | " );
 
