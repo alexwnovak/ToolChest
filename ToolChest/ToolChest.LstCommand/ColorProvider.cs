@@ -25,6 +25,7 @@ namespace ToolChest.LstCommand
       }
 
       public static ConsoleColor HiddenColor => ConsoleColor.DarkGray;
+      public static ConsoleColor FolderColor => ConsoleColor.DarkYellow;
 
       public static ConsoleColor GetColor( string extension )
       {
