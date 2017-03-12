@@ -9,20 +9,23 @@ namespace ToolChest.LstCommand
 
       private static Dictionary<string, ConsoleColor> CreateColorTable()
       {
-         var colorTable = new Dictionary<string, ConsoleColor>();
-
-         colorTable[".doc"] = ConsoleColor.Blue;
-         colorTable[".docx"] = ConsoleColor.Blue;
-         colorTable[".txt"] = ConsoleColor.Blue;
-         colorTable[".md"] = ConsoleColor.Blue;
-
-         colorTable[".bat"] = ConsoleColor.Green;
-         colorTable[".com"] = ConsoleColor.Green;
-         colorTable[".exe"] = ConsoleColor.Green;
-         colorTable[".ps1"] = ConsoleColor.Green;
+         var colorTable = new Dictionary<string, ConsoleColor>
+         {
+            [".doc"] = ConsoleColor.Blue,
+            [".docx"] = ConsoleColor.Blue,
+            [".txt"] = ConsoleColor.Blue,
+            [".md"] = ConsoleColor.Blue,
+            [".bat"] = ConsoleColor.Green,
+            [".com"] = ConsoleColor.Green,
+            [".exe"] = ConsoleColor.Green,
+            [".ps1"] = ConsoleColor.Green
+         };
 
          return colorTable;
       }
+
+      public static ConsoleColor HiddenColor => ConsoleColor.DarkGray;
+      public static ConsoleColor FolderColor => ConsoleColor.DarkYellow;
 
       public static ConsoleColor GetColor( string extension )
       {

@@ -17,11 +17,17 @@
          get;
       }
 
-      public FileDescriptor( string fullPath, long size, bool isDirectory )
+      public bool IsHidden
+      {
+         get;
+      }
+
+      public FileDescriptor( string fullPath, long size, bool isDirectory, bool isHidden )
       {
          FullPath = fullPath;
          Size = size;
          IsDirectory = isDirectory;
+         IsHidden = isHidden;
       }
    }
 }
