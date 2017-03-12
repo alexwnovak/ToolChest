@@ -4,5 +4,6 @@
    {
       void WriteFormatted( string line );
       void WriteHeader( string path );
+      void Write( FileDescriptor fileDescriptor );
    }
 }

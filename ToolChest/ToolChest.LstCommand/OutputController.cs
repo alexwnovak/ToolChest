@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using SystemWrapper;
 
@@ -45,6 +46,12 @@ namespace ToolChest.LstCommand
          _console.WriteLine( new string( '-', path.Length ) );
 
          _console.ForegroundColor = oldColor;
+      }
+
+      public void Write( FileDescriptor fileDescriptor )
+      {
+         string trimmedFile = Path.GetFileName( fileDescriptor.FullPath );
+         _console.WriteLine( trimmedFile );
       }
    }
 }

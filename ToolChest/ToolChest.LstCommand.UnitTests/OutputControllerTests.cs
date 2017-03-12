@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using SystemWrapper;
 using Moq;
 using Xunit;
@@ -89,6 +90,29 @@ namespace ToolChest.LstCommand.UnitTests
 
          consoleMock.Verify( c => c.WriteLine( path ), Times.Once() );
          consoleMock.Verify( c => c.WriteLine( It.Is<string>( s => s.Length == path.Length ) ) );
+      }
+
+      [Fact]
+      public void Write_HasFile_PrintsFileNameWithoutPath()
+      {
+         const string fileName = "File.txt";
+         string path = Path.Combine( @"C:\Temp", fileName );
+
+         // Arrange
+
+         var consoleMock = new Mock<IConsoleWrap>();
+
+         // Act
+
+         var fileDescriptor = new FileDescriptor( path, 123, false, false );
+
+         var outputController = new OutputController( consoleMock.Object );
+
+         outputController.Write( fileDescriptor );
+
+         // Assert
+
+         consoleMock.Verify( c => c.WriteLine( fileName ), Times.Once() );
       }
    }
 }
