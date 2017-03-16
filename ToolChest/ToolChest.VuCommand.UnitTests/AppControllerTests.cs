@@ -11,10 +11,11 @@ namespace ToolChest.VuCommand.UnitTests
          // Arrange
 
          var outputControllerMock = new Mock<IOutputController>();
+         var environmentControllerMock = new Mock<IEnvironmentController>();
 
          // Act
 
-         var appController = new AppController( outputControllerMock.Object );
+         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object );
 
          appController.Start( null );
 
@@ -29,10 +30,11 @@ namespace ToolChest.VuCommand.UnitTests
          // Arrange
 
          var outputControllerMock = new Mock<IOutputController>();
+         var environmentControllerMock = new Mock<IEnvironmentController>();
 
          // Act
 
-         var appController = new AppController( outputControllerMock.Object );
+         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object );
 
          appController.Start( new string[0] );
 
@@ -40,5 +42,45 @@ namespace ToolChest.VuCommand.UnitTests
 
          outputControllerMock.Verify( oc => oc.DisplaySyntax(), Times.Once() );
       }
+
+      [Fact]
+      public void Start_ArgumentsAreNull_ExitsWithCode1()
+      {
+         // Arrange
+
+         var outputControllerMock = new Mock<IOutputController>();
+         var environmentControllerMock = new Mock<IEnvironmentController>();
+
+         // Act
+
+         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object );
+
+         appController.Start( null );
+
+         // Assert
+
+         environmentControllerMock.Verify( ec => ec.Exit( 1 ), Times.Once() );
+      }
+
+
+      [Fact]
+      public void Start_ArgumentsAreEmptyString_ExitsWithCode1()
+      {
+         // Arrange
+
+         var outputControllerMock = new Mock<IOutputController>();
+         var environmentControllerMock = new Mock<IEnvironmentController>();
+
+         // Act
+
+         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object );
+
+         appController.Start( new string[0] );
+
+         // Assert
+
+         environmentControllerMock.Verify( ec => ec.Exit( 1 ), Times.Once() );
+      }
+
    }
 }
