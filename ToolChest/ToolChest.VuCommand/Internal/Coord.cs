@@ -7,5 +7,11 @@ namespace ToolChest.VuCommand.Internal
    {
       public short X;
       public short Y;
+
+      public Coord( short x, short y )
+      {
+         X = x;
+         Y = y;
+      }
    }
 }
