@@ -37,5 +37,6 @@
       void DrawStatusBar();
       void HideStatusBar();
       void Print( string text, int column, int row );
+      void ScrollDown( int rows );
    }
 }

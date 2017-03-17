@@ -34,6 +34,10 @@ namespace ToolChest.VuCommand
             {
                break;
             }
+            if ( key.Key == ConsoleKey.DownArrow )
+            {
+               _screenController.ScrollDown( 1 );
+            }
          }
 
          _screenController.HideStatusBar();
