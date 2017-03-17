@@ -3,7 +3,7 @@
 namespace ToolChest.VuCommand.Internal
 {
    [StructLayout( LayoutKind.Explicit )]
-   internal struct CharInfo
+   public struct CharInfo
    {
       [FieldOffset( 0 )]
       public char UnicodeChar;

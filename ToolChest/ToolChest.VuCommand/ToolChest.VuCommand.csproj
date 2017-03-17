@@ -50,6 +50,7 @@
     <Compile Include="Internal\Win32.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="IPager.cs" />
+    <Compile Include="IScreenBuffer.cs" />
     <Compile Include="IScreenController.cs" />
     <Compile Include="OutputController.cs" />
     <Compile Include="Pager.cs" />
