@@ -24,6 +24,7 @@ namespace ToolChest.VuCommand
 
          _screenController.PrintLines( lines );
          _screenController.DrawStatusBar();
+         _screenController.Print( $"Viewing: {fileName}", 0, _screenController.ScreenHeight - 1 );
 
          while ( true )
          {

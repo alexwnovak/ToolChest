@@ -146,5 +146,30 @@ namespace ToolChest.VuCommand.UnitTests
          actualBuffer[3].Attributes.Should().Be( attribute );
       }
 
+      [Fact]
+      public void Print_HasString_PrintsInTheGivenLocation()
+      {
+         CharInfo[] actualBuffer = new CharInfo[6];
+         const string text = "AB";
+
+         // Arrange
+
+         var screenBufferMock = new Mock<IScreenBuffer>();
+         screenBufferMock.SetupGet( sb => sb.Width ).Returns( 3 );
+         screenBufferMock.SetupGet( sb => sb.Height ).Returns( 2 );
+         screenBufferMock.Setup( sb => sb.Render( It.IsAny<Action<CharInfo[]>>() ) )
+                         .Callback<Action<CharInfo[]>>( a => a( actualBuffer ) );
+
+         // Act
+
+         var screenController = new ScreenController( screenBufferMock.Object );
+
+         screenController.Print( text, 1, 1 );
+
+         // Assert
+
+         actualBuffer[4].AsciiChar.Should().Be( text[0] );
+         actualBuffer[5].AsciiChar.Should().Be( text[1] );
+      }
    }
 }

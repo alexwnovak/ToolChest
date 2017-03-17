@@ -215,5 +215,34 @@ namespace ToolChest.VuCommand.UnitTests
 
          screenControllerMock.Verify( sc => sc.HideStatusBar(), Times.Once() );
       }
+
+      [Fact]
+      public void Display_HasFile_FileNameIsPrintedInStatusBar()
+      {
+         const int height = 25;
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+         string expectedText = $"Viewing: {fileName}";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.Print( expectedText, 0, height - 1 ), Times.Once() );
+      }
    }
 }

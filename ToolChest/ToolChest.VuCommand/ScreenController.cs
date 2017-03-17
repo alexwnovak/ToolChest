@@ -112,5 +112,18 @@ namespace ToolChest.VuCommand
             }
          } );
       }
+
+      public void Print( string text, int column, int row )
+      {
+         _screenBuffer.Render( b =>
+         {
+            int offset = row * ScreenWidth + column;
+
+            for ( int index = 0; index < text.Length; index++ )
+            {
+               b[offset + index].AsciiChar = text[index];
+            }
+         } );
+      }
    }
 }
