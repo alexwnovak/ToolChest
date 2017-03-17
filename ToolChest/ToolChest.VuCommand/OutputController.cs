@@ -17,7 +17,13 @@ namespace ToolChest.VuCommand
 
       public void DisplayFileError( string filePath )
       {
-         throw new NotImplementedException();
+         Console.ForegroundColor = ConsoleColor.Red;
+         Console.Write( "Error: " );
+
+         Console.ForegroundColor = ConsoleColor.Gray;
+         Console.WriteLine( $"Unable to open {filePath}" );
+
+         Console.WriteLine();
       }
    }
 }
