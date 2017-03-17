@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToolChest.VuCommand
+﻿namespace ToolChest.VuCommand
 {
    public class ScreenController : IScreenController
    {
@@ -16,6 +14,9 @@ namespace ToolChest.VuCommand
 
       public void Clear()
       {
+         _screenBuffer.CursorLeft = 0;
+         _screenBuffer.CursorTop = 0;
+
          _screenBuffer.Render( b =>
          {
             for ( int index = 0; index < b.Length; index++ )

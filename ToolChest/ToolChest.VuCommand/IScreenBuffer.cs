@@ -15,6 +15,18 @@ namespace ToolChest.VuCommand
          get;
       }
 
+      int CursorLeft
+      {
+         get;
+         set;
+      }
+
+      int CursorTop
+      {
+         get;
+         set;
+      }
+
       void Render( Action<CharInfo[]> renderAction );
    }
 }

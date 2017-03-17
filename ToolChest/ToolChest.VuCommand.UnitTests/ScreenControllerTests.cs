@@ -16,6 +16,25 @@ namespace ToolChest.VuCommand.UnitTests
       }
 
       [Fact]
+      public void Clear_HappyPath_MovesCursorLocationToTopLeft()
+      {
+         // Arrange
+
+         var screenBufferMock = new Mock<IScreenBuffer>();
+
+         // Act
+
+         var screenController = new ScreenController( screenBufferMock.Object );
+
+         screenController.Clear();
+
+         // Assert
+
+         screenBufferMock.VerifySet( sb => sb.CursorLeft = 0, Times.Once() );
+         screenBufferMock.VerifySet( sb => sb.CursorTop = 0, Times.Once() );
+      }
+
+      [Fact]
       public void Clear_HappyPath_RendersToScreenBuffer()
       {
          // Arrange

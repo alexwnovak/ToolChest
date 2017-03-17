@@ -25,6 +25,30 @@ namespace ToolChest.VuCommand
          get;
       }
 
+      public int CursorLeft
+      {
+         get
+         {
+            return Console.CursorLeft;
+         }
+         set
+         {
+            Console.CursorLeft = value;
+         }
+      }
+
+      public int CursorTop
+      {
+         get
+         {
+            return Console.CursorTop;
+         }
+         set
+         {
+            Console.CursorTop = value;
+         }
+      }
+
       public ScreenBuffer()
       {
          _consoleHandle = Win32.GetStdHandle( Win32.StdOutputHandle );
