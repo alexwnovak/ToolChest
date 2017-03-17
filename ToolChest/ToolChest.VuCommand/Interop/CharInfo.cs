@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ToolChest.VuCommand.Internal
+namespace ToolChest.VuCommand.Interop
 {
    [StructLayout( LayoutKind.Explicit )]
    public struct CharInfo

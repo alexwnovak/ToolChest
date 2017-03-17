@@ -1,5 +1,5 @@
 ﻿using System;
-using ToolChest.VuCommand.Internal;
+using ToolChest.VuCommand.Interop;
 
 namespace ToolChest.VuCommand
 {

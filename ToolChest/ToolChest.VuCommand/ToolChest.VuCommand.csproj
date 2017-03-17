@@ -44,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
-    <Compile Include="Internal\CharInfo.cs" />
-    <Compile Include="Internal\Coord.cs" />
-    <Compile Include="Internal\Rect.cs" />
-    <Compile Include="Internal\Win32.cs" />
+    <Compile Include="Interop\CharInfo.cs" />
+    <Compile Include="Interop\Coord.cs" />
+    <Compile Include="Interop\Rect.cs" />
+    <Compile Include="Interop\Win32.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="IPager.cs" />
     <Compile Include="IScreenBuffer.cs" />

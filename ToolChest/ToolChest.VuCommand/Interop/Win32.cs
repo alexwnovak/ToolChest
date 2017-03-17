@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace ToolChest.VuCommand.Internal
+namespace ToolChest.VuCommand.Interop
 {
    internal static class Win32
    {

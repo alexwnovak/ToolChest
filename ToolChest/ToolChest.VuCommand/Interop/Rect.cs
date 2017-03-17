@@ -1,4 +1,4 @@
-﻿namespace ToolChest.VuCommand.Internal
+﻿namespace ToolChest.VuCommand.Interop
 {
    internal struct Rect
    {

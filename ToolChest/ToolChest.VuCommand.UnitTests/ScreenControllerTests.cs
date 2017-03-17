@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Moq;
+using ToolChest.VuCommand.Interop;
 using Xunit;
-using ToolChest.VuCommand.Internal;
 
 namespace ToolChest.VuCommand.UnitTests
 {
