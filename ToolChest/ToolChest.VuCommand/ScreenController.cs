@@ -85,7 +85,7 @@ namespace ToolChest.VuCommand
 
       public void DrawStatusBar()
       {
-         const ushort attribute = 1 << 4 | 0;
+         const ushort attribute = 1 << 4 | 15;
 
          _screenBuffer.Render( b =>
          {

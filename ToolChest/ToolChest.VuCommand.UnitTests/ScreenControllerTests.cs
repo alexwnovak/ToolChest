@@ -107,7 +107,7 @@ namespace ToolChest.VuCommand.UnitTests
 
          // Assert
 
-         const int attribute = 1 << 4 | 0;
+         const int attribute = 1 << 4 | 15;
 
          actualBuffer[2].AsciiChar.Should().Be( '\0' );
          actualBuffer[2].Attributes.Should().Be( attribute );
