@@ -23,6 +23,7 @@ namespace ToolChest.VuCommand
          var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
 
          _screenController.PrintLines( lines );
+         _screenController.DrawStatusBar();
 
          while ( true )
          {

@@ -33,5 +33,7 @@
       void Clear();
 
       void PrintLines( string[] lines );
+
+      void DrawStatusBar();
    }
 }

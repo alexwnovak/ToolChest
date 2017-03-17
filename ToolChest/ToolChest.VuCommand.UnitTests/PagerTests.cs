@@ -165,5 +165,30 @@ namespace ToolChest.VuCommand.UnitTests
          screenControllerMock.VerifySet( sc => sc.CursorLeft = 0, Times.Once() );
          screenControllerMock.VerifySet( sc => sc.CursorTop = screenHeight, Times.Once() );
       }
+
+      [Fact]
+      public void Display_HasFile_DrawsStatusBar()
+      {
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( "DoesNotMatter" );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.DrawStatusBar(), Times.Once() );
+      }
    }
 }

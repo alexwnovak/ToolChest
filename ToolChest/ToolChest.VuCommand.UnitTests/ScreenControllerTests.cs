@@ -85,5 +85,35 @@ namespace ToolChest.VuCommand.UnitTests
          actualBuffer[3].AsciiChar.Should().Be( 'B' );
          actualBuffer[4].AsciiChar.Should().Be( '\0' );
       }
+
+      [Fact]
+      public void DrawStatusBar_HappyPath_FillsLineAtBottom()
+      {
+         CharInfo[] actualBuffer = new CharInfo[4];
+
+         // Arrange
+
+         var screenBufferMock = new Mock<IScreenBuffer>();
+         screenBufferMock.SetupGet( sb => sb.Width ).Returns( 2 );
+         screenBufferMock.SetupGet( sb => sb.Height ).Returns( 2 );
+         screenBufferMock.Setup( sb => sb.Render( It.IsAny<Action<CharInfo[]>>() ) )
+                         .Callback<Action<CharInfo[]>>( a => a( actualBuffer ) );
+
+         // Act
+
+         var screenController = new ScreenController( screenBufferMock.Object );
+
+         screenController.DrawStatusBar();
+
+         // Assert
+
+         const int attribute = 1 << 4 | 0;
+
+         actualBuffer[2].AsciiChar.Should().Be( '\0' );
+         actualBuffer[2].Attributes.Should().Be( attribute );
+
+         actualBuffer[3].AsciiChar.Should().Be( '\0' );
+         actualBuffer[3].Attributes.Should().Be( attribute );
+      }
    }
 }
