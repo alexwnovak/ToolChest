@@ -12,6 +12,12 @@
          get;
       }
 
+      bool IsCursorVisible
+      {
+         get;
+         set;
+      }
+
       void Clear();
 
       void PrintLines( string[] lines );

@@ -1,4 +1,6 @@
-﻿namespace ToolChest.VuCommand
+﻿using System;
+
+namespace ToolChest.VuCommand
 {
    public class ScreenController : IScreenController
    {
@@ -6,6 +8,18 @@
 
       public int ScreenWidth => _screenBuffer.Width;
       public int ScreenHeight => _screenBuffer.Height;
+
+      public bool IsCursorVisible
+      {
+         get
+         {
+            return _screenBuffer.IsCursorVisible;
+         }
+         set
+         {
+            _screenBuffer.IsCursorVisible = value;
+         }
+      }
 
       public ScreenController( IScreenBuffer screenBuffer )
       {

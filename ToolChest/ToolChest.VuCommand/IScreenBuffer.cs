@@ -27,6 +27,12 @@ namespace ToolChest.VuCommand
          set;
       }
 
+      bool IsCursorVisible
+      {
+         get;
+         set;
+      }
+
       void Render( Action<CharInfo[]> renderAction );
    }
 }

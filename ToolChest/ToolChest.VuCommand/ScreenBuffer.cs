@@ -49,6 +49,18 @@ namespace ToolChest.VuCommand
          }
       }
 
+      public bool IsCursorVisible
+      {
+         get
+         {
+            return Console.CursorVisible;
+         }
+         set
+         {
+            Console.CursorVisible = value;
+         }
+      }
+
       public ScreenBuffer()
       {
          _consoleHandle = Win32.GetStdHandle( Win32.StdOutputHandle );

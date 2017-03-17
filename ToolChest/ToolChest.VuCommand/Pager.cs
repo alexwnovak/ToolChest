@@ -17,6 +17,7 @@ namespace ToolChest.VuCommand
 
       public void Display( string fileName )
       {
+         _screenController.IsCursorVisible = false;
          _screenController.Clear();
 
          var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
@@ -32,6 +33,8 @@ namespace ToolChest.VuCommand
                break;
             }
          }
+
+         _screenController.IsCursorVisible = true;
       }
    }
 }

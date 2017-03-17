@@ -7,6 +7,56 @@ namespace ToolChest.VuCommand.UnitTests
    public class PagerTests
    {
       [Fact]
+      public void Display_HasFile_HidesCursor()
+      {
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( "File.txt" );
+
+         // Assert
+
+         screenControllerMock.VerifySet( sc => sc.IsCursorVisible = false, Times.Once() );
+      }
+
+      [Fact]
+      public void Display_HasFile_RestoresCursor()
+      {
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( "File.txt" );
+
+         // Assert
+
+         screenControllerMock.VerifySet( sc => sc.IsCursorVisible = true, Times.Once() );
+      }
+
+      [Fact]
       public void Display_HasFile_ClearsScreen()
       {
          var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
