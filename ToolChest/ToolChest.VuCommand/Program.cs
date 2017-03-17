@@ -6,7 +6,8 @@
       {
          var outputController = new OutputController();
 
-         var screenController = new ScreenController( null );
+         var screenBuffer = new ScreenBuffer();
+         var screenController = new ScreenController( screenBuffer );
          var pager = new Pager( screenController );
 
          var appController = new AppController( outputController, pager );
