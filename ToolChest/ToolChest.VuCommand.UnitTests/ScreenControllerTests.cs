@@ -117,9 +117,11 @@ namespace ToolChest.VuCommand.UnitTests
       }
 
       [Fact]
-      public void HideStatusBar_HappyPath_RestoresLineAttributesAtBottom()
+      public void HideStatusBar_HappyPath_RestoresAttributeAndErasesCharactersAtBottom()
       {
          CharInfo[] actualBuffer = new CharInfo[4];
+         actualBuffer[2].AsciiChar = 'X';
+         actualBuffer[3].AsciiChar = 'X';
 
          // Arrange
 

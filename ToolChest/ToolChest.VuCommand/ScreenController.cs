@@ -108,6 +108,7 @@ namespace ToolChest.VuCommand
 
             for ( int index = 0; index < ScreenWidth; index++ )
             {
+               b[offset + index].AsciiChar = '\0';
                b[offset + index].Attributes = attribute;
             }
          } );
