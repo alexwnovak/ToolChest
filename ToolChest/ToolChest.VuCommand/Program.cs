@@ -8,7 +8,7 @@
 
          var screenBuffer = new ScreenBuffer();
          var screenController = new ScreenController( screenBuffer );
-         var pager = new Pager( screenController );
+         var pager = new Pager( screenController, null );
 
          var appController = new AppController( outputController, pager );
 
