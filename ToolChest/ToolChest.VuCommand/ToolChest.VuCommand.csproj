@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="Internal\Rect.cs" />
     <Compile Include="Internal\Win32.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="IPager.cs" />
