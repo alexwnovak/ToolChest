@@ -35,5 +35,6 @@
       void PrintLines( string[] lines );
 
       void DrawStatusBar();
+      void HideStatusBar();
    }
 }

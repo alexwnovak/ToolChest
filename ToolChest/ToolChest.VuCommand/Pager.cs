@@ -35,6 +35,8 @@ namespace ToolChest.VuCommand
             }
          }
 
+         _screenController.HideStatusBar();
+
          _screenController.IsCursorVisible = true;
          _screenController.CursorLeft = 0;
          _screenController.CursorTop = _screenController.ScreenHeight;

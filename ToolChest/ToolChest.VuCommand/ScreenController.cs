@@ -97,5 +97,20 @@ namespace ToolChest.VuCommand
             }
          } );
       }
+
+      public void HideStatusBar()
+      {
+         const ushort attribute = 0 << 4 | 7;
+
+         _screenBuffer.Render( b =>
+         {
+            int offset = (ScreenHeight - 1) * ScreenWidth;
+
+            for ( int index = 0; index < ScreenWidth; index++ )
+            {
+               b[offset + index].Attributes = attribute;
+            }
+         } );
+      }
    }
 }
