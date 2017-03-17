@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="Internal\CharInfo.cs" />
     <Compile Include="Internal\Coord.cs" />
     <Compile Include="Internal\Rect.cs" />
     <Compile Include="Internal\Win32.cs" />
