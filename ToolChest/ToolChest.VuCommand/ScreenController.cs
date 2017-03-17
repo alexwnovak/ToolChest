@@ -6,6 +6,7 @@ namespace ToolChest.VuCommand
    {
       private readonly IScreenBuffer _screenBuffer;
 
+      public int ScreenWidth => _screenBuffer.Width;
       public int ScreenHeight => _screenBuffer.Height;
 
       public ScreenController( IScreenBuffer screenBuffer )
@@ -27,7 +28,20 @@ namespace ToolChest.VuCommand
 
       public void PrintLines( string[] lines )
       {
-         throw new NotImplementedException();
+         _screenBuffer.Render( b =>
+         {
+            int offset = 0;
+
+            foreach ( string line in lines )
+            {
+               for ( int index = 0; index < line.Length; index++ )
+               {
+                  b[offset + index].AsciiChar = line[index];
+               }
+
+               offset += _screenBuffer.Width;
+            }
+         } );
       }
    }
 }

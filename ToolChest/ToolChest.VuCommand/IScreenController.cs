@@ -2,6 +2,11 @@
 {
    public interface IScreenController
    {
+      int ScreenWidth
+      {
+         get;
+      }
+
       int ScreenHeight
       {
          get;
