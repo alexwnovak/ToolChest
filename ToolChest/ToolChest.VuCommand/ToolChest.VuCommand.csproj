@@ -44,8 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
-    <Compile Include="EnvironmentController.cs" />
-    <Compile Include="IEnvironmentController.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="IPager.cs" />
     <Compile Include="OutputController.cs" />

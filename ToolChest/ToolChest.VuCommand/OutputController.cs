@@ -14,5 +14,10 @@ namespace ToolChest.VuCommand
 
          Console.WriteLine();
       }
+
+      public void DisplayFileError( string filePath )
+      {
+         throw new NotImplementedException();
+      }
    }
 }

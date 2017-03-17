@@ -5,10 +5,9 @@
       private static void Main( string[] args )
       {
          var outputController = new OutputController();
-         var environmentController = new EnvironmentController();
          var pager = new Pager();
 
-         var appController = new AppController( outputController, environmentController, pager );
+         var appController = new AppController( outputController, pager );
 
          appController.Start( args );
       }
