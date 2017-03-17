@@ -17,6 +17,11 @@ namespace ToolChest.VuCommand
                {
                   string line = streamReader.ReadLine();
 
+                  if ( streamReader.EndOfStream )
+                  {
+                     break;
+                  }
+
                   lines.Add( line );
                }
             }
