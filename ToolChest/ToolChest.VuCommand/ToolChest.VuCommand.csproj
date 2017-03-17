@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="FileReader.cs" />
     <Compile Include="IFileReader.cs" />
     <Compile Include="Interop\CharInfo.cs" />
     <Compile Include="Interop\Coord.cs" />
