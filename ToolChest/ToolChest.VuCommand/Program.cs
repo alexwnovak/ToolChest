@@ -5,7 +5,9 @@
       private static void Main( string[] args )
       {
          var outputController = new OutputController();
-         var pager = new Pager();
+
+         var screenController = new ScreenController();
+         var pager = new Pager( screenController );
 
          var appController = new AppController( outputController, pager );
 
