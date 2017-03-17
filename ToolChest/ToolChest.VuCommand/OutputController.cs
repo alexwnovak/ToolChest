@@ -14,5 +14,16 @@ namespace ToolChest.VuCommand
 
          Console.WriteLine();
       }
+
+      public void DisplayFileError( string filePath )
+      {
+         Console.ForegroundColor = ConsoleColor.Red;
+         Console.Write( "Error: " );
+
+         Console.ForegroundColor = ConsoleColor.Gray;
+         Console.WriteLine( $"Unable to open {filePath}" );
+
+         Console.WriteLine();
+      }
    }
 }

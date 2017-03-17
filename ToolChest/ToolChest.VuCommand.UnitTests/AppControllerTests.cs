@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.IO;
+using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace ToolChest.VuCommand.UnitTests
@@ -11,11 +13,10 @@ namespace ToolChest.VuCommand.UnitTests
          // Arrange
 
          var outputControllerMock = new Mock<IOutputController>();
-         var environmentControllerMock = new Mock<IEnvironmentController>();
 
          // Act
 
-         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object, null );
+         var appController = new AppController( outputControllerMock.Object, null );
 
          appController.Start( new string[0] );
 
@@ -30,17 +31,16 @@ namespace ToolChest.VuCommand.UnitTests
          // Arrange
 
          var outputControllerMock = new Mock<IOutputController>();
-         var environmentControllerMock = new Mock<IEnvironmentController>();
 
          // Act
 
-         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object, null );
+         var appController = new AppController( outputControllerMock.Object, null );
 
-         appController.Start( new string[0] );
+         int exitCode = appController.Start( new string[0] );
 
          // Assert
 
-         environmentControllerMock.Verify( ec => ec.Exit( 1 ), Times.Once() );
+         exitCode.Should().Be( 1 );
       }
 
       [Fact]
@@ -51,18 +51,82 @@ namespace ToolChest.VuCommand.UnitTests
          // Arrange
 
          var outputControllerMock = new Mock<IOutputController>();
-         var environmentControllerMock = new Mock<IEnvironmentController>();
          var pagerMock = new Mock<IPager>();
 
          // Act
 
-         var appController = new AppController( outputControllerMock.Object, environmentControllerMock.Object, pagerMock.Object );
+         var appController = new AppController( outputControllerMock.Object, pagerMock.Object );
 
          appController.Start( new[] { fileName } );
 
          // Assert
 
-         pagerMock.Verify( ec => ec.Display( fileName ), Times.Once() );
+         pagerMock.Verify( p => p.Display( fileName ), Times.Once() );
+      }
+
+      [Fact]
+      public void Start_HasArguments_ExitWithCode0()
+      {
+         const string fileName = @"C:\Temp\SomeFile.txt";
+
+         // Arrange
+
+         var outputControllerMock = new Mock<IOutputController>();
+         var pagerMock = new Mock<IPager>();
+
+         // Act
+
+         var appController = new AppController( outputControllerMock.Object, pagerMock.Object );
+
+         int exitCode = appController.Start( new[] { fileName } );
+
+         // Assert
+
+         exitCode.Should().Be( 0 );
+      }
+
+      [Fact]
+      public void Start_GivenFileDoesNotExist_DisplaysError()
+      {
+         const string fileName = @"C:\Temp\SomeFile.txt";
+
+         // Arrange
+
+         var outputControllerMock = new Mock<IOutputController>();
+         var pagerMock = new Mock<IPager>();
+         pagerMock.Setup( p => p.Display( fileName ) ).Throws<FileNotFoundException>();
+
+         // Act
+
+         var appController = new AppController( outputControllerMock.Object, pagerMock.Object );
+
+         appController.Start( new[] { fileName } );
+
+         // Assert
+
+         outputControllerMock.Verify( oc => oc.DisplayFileError( fileName ), Times.Once() );
+      }
+
+      [Fact]
+      public void Start_GivenFileDoesNotExist_ReturnsExitCode1()
+      {
+         const string fileName = @"C:\Temp\SomeFile.txt";
+
+         // Arrange
+
+         var outputControllerMock = new Mock<IOutputController>();
+         var pagerMock = new Mock<IPager>();
+         pagerMock.Setup( p => p.Display( fileName ) ).Throws<FileNotFoundException>();
+
+         // Act
+
+         var appController = new AppController( outputControllerMock.Object, pagerMock.Object );
+
+         int exitCode = appController.Start( new[] { fileName } );
+
+         // Assert
+
+         exitCode.Should().Be( 1 );
       }
    }
 }
