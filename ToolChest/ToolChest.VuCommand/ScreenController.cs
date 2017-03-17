@@ -21,6 +21,30 @@ namespace ToolChest.VuCommand
          }
       }
 
+      public int CursorLeft
+      {
+         get
+         {
+            return _screenBuffer.CursorLeft;
+         }
+         set
+         {
+            _screenBuffer.CursorLeft = value;
+         }
+      }
+
+      public int CursorTop
+      {
+         get
+         {
+            return _screenBuffer.CursorTop;
+         }
+         set
+         {
+            _screenBuffer.CursorTop = value;
+         }
+      }
+
       public ScreenController( IScreenBuffer screenBuffer )
       {
          _screenBuffer = screenBuffer;

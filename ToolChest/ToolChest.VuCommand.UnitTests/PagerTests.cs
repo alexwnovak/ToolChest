@@ -137,5 +137,33 @@ namespace ToolChest.VuCommand.UnitTests
 
          inputControllerMock.Verify( ic => ic.ReadKey(), Times.Exactly( 2 ) );
       }
+
+      [Fact]
+      public void Display_HasFile_CursorIsSetToBottomLeftOnExit()
+      {
+         const int screenHeight = 25;
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( screenHeight );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( "DoesNotMatter" );
+
+         // Assert
+
+         screenControllerMock.VerifySet( sc => sc.CursorLeft = 0, Times.Once() );
+         screenControllerMock.VerifySet( sc => sc.CursorTop = screenHeight, Times.Once() );
+      }
    }
 }

@@ -18,6 +18,18 @@
          set;
       }
 
+      int CursorLeft
+      {
+         get;
+         set;
+      }
+
+      int CursorTop
+      {
+         get;
+         set;
+      }
+
       void Clear();
 
       void PrintLines( string[] lines );
