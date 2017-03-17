@@ -15,7 +15,7 @@
       {
          _screenController.Clear();
 
-         var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight );
+         var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
 
          _screenController.PrintLines( lines );
       }

@@ -37,7 +37,7 @@ namespace ToolChest.VuCommand.UnitTests
          screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( screenHeight );
          
          var fileReaderMock = new Mock<IFileReader>();
-         fileReaderMock.Setup( fr => fr.ReadLines( fileName, screenHeight ) ).Returns( lines );
+         fileReaderMock.Setup( fr => fr.ReadLines( fileName, screenHeight - 1 ) ).Returns( lines );
 
          // Act
 
