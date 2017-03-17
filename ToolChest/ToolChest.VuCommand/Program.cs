@@ -10,7 +10,7 @@
          var screenController = new ScreenController( screenBuffer );
 
          var fileReader = new FileReader();
-         var pager = new Pager( screenController, fileReader );
+         var pager = new Pager( screenController, null, fileReader );
 
          var appController = new AppController( outputController, pager );
 

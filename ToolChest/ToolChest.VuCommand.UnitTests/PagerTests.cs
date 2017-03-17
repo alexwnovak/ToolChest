@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using Xunit;
 
 namespace ToolChest.VuCommand.UnitTests
@@ -8,14 +9,20 @@ namespace ToolChest.VuCommand.UnitTests
       [Fact]
       public void Display_HasFile_ClearsScreen()
       {
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
          // Arrange
 
          var screenControllerMock = new Mock<IScreenController>();
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
          var fileReaderMock = new Mock<IFileReader>();
 
          // Act
 
-         var pager = new Pager( screenControllerMock.Object, fileReaderMock.Object );
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
 
          pager.Display( "File.txt" );
 
@@ -30,24 +37,55 @@ namespace ToolChest.VuCommand.UnitTests
          const string fileName = "SomeFile.txt";
          const int screenHeight = 25;
          var lines = new string[screenHeight];
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
 
          // Arrange
 
          var screenControllerMock = new Mock<IScreenController>();
          screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( screenHeight );
-         
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
+
          var fileReaderMock = new Mock<IFileReader>();
          fileReaderMock.Setup( fr => fr.ReadLines( fileName, screenHeight - 1 ) ).Returns( lines );
 
          // Act
 
-         var pager = new Pager( screenControllerMock.Object, fileReaderMock.Object );
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
 
          pager.Display( fileName );
 
          // Assert
 
          screenControllerMock.Verify( sc => sc.PrintLines( lines ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_HasFile_WaitsForEscapeKeyBeforeExiting()
+      {
+         var aKey = new ConsoleKeyInfo( 'A', ConsoleKey.A, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         var fileReaderMock = new Mock<IFileReader>();
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( aKey )
+            .Returns( escKey );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( "DoesNotMatter" );
+
+         // Assert
+
+         inputControllerMock.Verify( ic => ic.ReadKey(), Times.Exactly( 2 ) );
       }
    }
 }
