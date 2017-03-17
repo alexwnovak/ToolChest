@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="EnvironmentController.cs" />
     <Compile Include="IEnvironmentController.cs" />
     <Compile Include="IOutputController.cs" />
     <Compile Include="IPager.cs" />
+    <Compile Include="OutputController.cs" />
+    <Compile Include="Pager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
