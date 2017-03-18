@@ -214,5 +214,42 @@ namespace ToolChest.VuCommand.UnitTests
          actualBuffer[4].AsciiChar.Should().Be( '-' );
          actualBuffer[5].AsciiChar.Should().Be( '-' );
       }
+
+      [Fact]
+      public void ScrollUp_ScrollOneRow_MovesDataDownOneRowButDoesNotChangeBottomRow()
+      {
+         CharInfo[] actualBuffer = new CharInfo[6];
+         actualBuffer[0].AsciiChar = 'A';
+         actualBuffer[0].Attributes = 7;
+         actualBuffer[1].AsciiChar = 'B';
+         actualBuffer[1].Attributes = 7;
+         actualBuffer[4].AsciiChar = '-';
+         actualBuffer[5].AsciiChar = '-';
+
+         // Arrange
+
+         var screenBufferMock = new Mock<IScreenBuffer>();
+         screenBufferMock.SetupGet( sb => sb.Width ).Returns( 2 );
+         screenBufferMock.SetupGet( sb => sb.Height ).Returns( 3 );
+         screenBufferMock.Setup( sb => sb.Render( It.IsAny<Action<CharInfo[]>>() ) )
+                         .Callback<Action<CharInfo[]>>( a => a( actualBuffer ) );
+
+         // Act
+
+         var screenController = new ScreenController( screenBufferMock.Object );
+
+         screenController.ScrollUp( 1 );
+
+         // Assert
+
+         actualBuffer[0].AsciiChar.Should().Be( '\0' );
+         actualBuffer[0].Attributes.Should().Be( 7 );
+         actualBuffer[1].AsciiChar.Should().Be( '\0' );
+         actualBuffer[1].Attributes.Should().Be( 7 );
+         actualBuffer[2].AsciiChar.Should().Be( 'A' );
+         actualBuffer[3].AsciiChar.Should().Be( 'B' );
+         actualBuffer[4].AsciiChar.Should().Be( '-' );
+         actualBuffer[5].AsciiChar.Should().Be( '-' );
+      }
    }
 }

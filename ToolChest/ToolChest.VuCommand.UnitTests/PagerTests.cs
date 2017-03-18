@@ -279,6 +279,38 @@ namespace ToolChest.VuCommand.UnitTests
       }
 
       [Fact]
+      public void Display_PressesUpArrow_ScrollsUpByOneRow()
+      {
+         const int height = 25;
+         var upArrowKey = new ConsoleKeyInfo( (char) 72, ConsoleKey.UpArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( upArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadNextLine() ).Returns( "doesntmatter" );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.ScrollUp( 1 ), Times.Once() );
+      }
+
+      [Fact]
       public void Display_PressesDownArrow_NextLineFromFileIsPrinted()
       {
          const int height = 25;

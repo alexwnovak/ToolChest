@@ -45,6 +45,10 @@ namespace ToolChest.VuCommand
                   _screenController.Print( nextLine, 0, _screenController.ScreenHeight - 2 );
                }
             }
+            else if ( key.Key == ConsoleKey.UpArrow )
+            {
+               _screenController.ScrollUp( 1 );
+            }
          }
 
          _screenController.HideStatusBar();
