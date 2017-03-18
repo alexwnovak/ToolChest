@@ -21,7 +21,7 @@ namespace ToolChest.VuCommand
          _screenController.Clear();
 
          _fileReader.Open( fileName );
-         var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
+         var lines = _fileReader.ReadLines( _screenController.ScreenHeight - 1 );
 
          _screenController.PrintLines( lines );
          _screenController.DrawStatusBar();

@@ -15,7 +15,7 @@ namespace ToolChest.VuCommand
          _streamReader = new StreamReader( _fileStream );
       }
 
-      public string[] ReadLines( string fileName, int count )
+      public string[] ReadLines( int count )
       {
          var lines = new List<string>();
 
@@ -23,12 +23,15 @@ namespace ToolChest.VuCommand
          {
             string line = _streamReader.ReadLine();
 
+            if ( line != null )
+            {
+               lines.Add( line );
+            }
+
             if ( _streamReader.EndOfStream )
             {
                break;
             }
-
-            lines.Add( line );
          }
 
          return lines.ToArray();

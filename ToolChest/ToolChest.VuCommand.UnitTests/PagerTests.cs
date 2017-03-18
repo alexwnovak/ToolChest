@@ -98,7 +98,7 @@ namespace ToolChest.VuCommand.UnitTests
          inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
 
          var fileReaderMock = new Mock<IFileReader>();
-         fileReaderMock.Setup( fr => fr.ReadLines( fileName, screenHeight - 1 ) ).Returns( lines );
+         fileReaderMock.Setup( fr => fr.ReadLines( screenHeight - 1 ) ).Returns( lines );
 
          // Act
 

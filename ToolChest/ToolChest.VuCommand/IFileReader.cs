@@ -3,7 +3,7 @@
    public interface IFileReader
    {
       void Open( string fileName );
-      string[] ReadLines( string fileName, int count );
+      string[] ReadLines( int count );
       string ReadNextLine();
    }
 }
