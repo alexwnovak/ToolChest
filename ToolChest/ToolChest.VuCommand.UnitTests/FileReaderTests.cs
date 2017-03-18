@@ -21,5 +21,21 @@ namespace ToolChest.VuCommand.UnitTests
             }
          } );
       }
+
+      [Fact]
+      public void ReadLines_TriesToReadMoreLinesThanAreAvailable_ReadsWhatsThere()
+      {
+         FileHelper.UseTempFile( "one\r\ntwo\r\nthree", f =>
+         {
+            using ( var fileReader = new FileReader() )
+            {
+               fileReader.Open( f );
+               var lines = fileReader.ReadLines( 2 );
+
+               lines[0].Should().Be( "one" );
+               lines[1].Should().Be( "two" );
+            }
+         } );
+      }
    }
 }
