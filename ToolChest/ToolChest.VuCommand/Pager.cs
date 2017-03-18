@@ -20,7 +20,8 @@ namespace ToolChest.VuCommand
          _screenController.IsCursorVisible = false;
          _screenController.Clear();
 
-         var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
+         _fileReader.Open( fileName );
+         var lines = _fileReader.ReadLines( _screenController.ScreenHeight - 1 );
 
          _screenController.PrintLines( lines );
          _screenController.DrawStatusBar();
@@ -33,6 +34,23 @@ namespace ToolChest.VuCommand
             if ( key.Key == ConsoleKey.Escape )
             {
                break;
+            }
+            if ( key.Key == ConsoleKey.DownArrow )
+            {
+               string nextLine = _fileReader.ReadNextLine();
+
+               if ( nextLine != null )
+               {
+                  _screenController.ScrollDown( 1 );
+                  _screenController.Print( nextLine, 0, _screenController.ScreenHeight - 2 );
+               }
+            }
+            else if ( key.Key == ConsoleKey.UpArrow )
+            {
+               _screenController.ScrollUp( 1 );
+
+               string previousLine = _fileReader.ReadPreviousLine();
+               _screenController.Print( previousLine, 0, 0 );
             }
          }
 

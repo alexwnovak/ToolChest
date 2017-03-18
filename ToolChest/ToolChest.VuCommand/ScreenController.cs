@@ -126,5 +126,38 @@ namespace ToolChest.VuCommand
             }
          } );
       }
+
+      public void ScrollDown( int rows )
+      {
+         _screenBuffer.Render( b =>
+         {
+            int sourceIndex = ScreenWidth;
+            int length = ScreenWidth * ScreenHeight - ScreenWidth * 2;
+
+            Array.Copy( b, sourceIndex, b, 0, length );
+
+            for ( int index = 0; index < ScreenWidth; index++ )
+            {
+               b[length + index].AsciiChar = '\0';
+               b[length + index].Attributes = 7;
+            }
+         } );
+      }
+
+      public void ScrollUp( int rows )
+      {
+         _screenBuffer.Render( b =>
+         {
+            int length = ScreenWidth * ScreenHeight - ScreenWidth * 2;
+
+            Array.Copy( b, 0, b, ScreenWidth, length );
+
+            for ( int index = 0; index < ScreenWidth; index++ )
+            {
+               b[index].AsciiChar = '\0';
+               b[index].Attributes = 7;
+            }
+         } );
+      }
    }
 }

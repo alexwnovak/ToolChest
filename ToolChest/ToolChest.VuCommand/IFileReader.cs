@@ -2,6 +2,9 @@
 {
    public interface IFileReader
    {
-      string[] ReadLines( string fileName, int count );
+      void Open( string fileName );
+      string[] ReadLines( int count );
+      string ReadNextLine();
+      string ReadPreviousLine();
    }
 }

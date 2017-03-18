@@ -98,7 +98,7 @@ namespace ToolChest.VuCommand.UnitTests
          inputControllerMock.Setup( ic => ic.ReadKey() ).Returns( escKey );
 
          var fileReaderMock = new Mock<IFileReader>();
-         fileReaderMock.Setup( fr => fr.ReadLines( fileName, screenHeight - 1 ) ).Returns( lines );
+         fileReaderMock.Setup( fr => fr.ReadLines( screenHeight - 1 ) ).Returns( lines );
 
          // Act
 
@@ -108,6 +108,7 @@ namespace ToolChest.VuCommand.UnitTests
 
          // Assert
 
+         fileReaderMock.Verify( fr => fr.Open( fileName ), Times.Once() );
          screenControllerMock.Verify( sc => sc.PrintLines( lines ), Times.Once() );
       }
 
@@ -243,6 +244,168 @@ namespace ToolChest.VuCommand.UnitTests
          // Assert
 
          screenControllerMock.Verify( sc => sc.Print( expectedText, 0, height - 1 ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_PressesDownArrow_ScrollsDownByOneRow()
+      {
+         const int height = 25;
+         var downArrowKey = new ConsoleKeyInfo( (char) 80, ConsoleKey.DownArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( downArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadNextLine() ).Returns( "doesntmatter" );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.ScrollDown( 1 ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_PressesUpArrow_ScrollsUpByOneRow()
+      {
+         const int height = 25;
+         var upArrowKey = new ConsoleKeyInfo( (char) 72, ConsoleKey.UpArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( upArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadNextLine() ).Returns( "doesntmatter" );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.ScrollUp( 1 ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_PressesDownArrow_NextLineFromFileIsPrinted()
+      {
+         const int height = 25;
+         var downArrowKey = new ConsoleKeyInfo( (char) 80, ConsoleKey.DownArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+         const string nextLine = "Next line";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( downArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadNextLine() ).Returns( nextLine );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.Print( nextLine, 0, height - 2 ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_PressesUpArrow_PreviousLineFromFileIsPrinted()
+      {
+         const int height = 25;
+         var upArrowKey = new ConsoleKeyInfo( (char) 72, ConsoleKey.UpArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+         const string previousLine = "Previous line";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( upArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadPreviousLine() ).Returns( previousLine );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.Print( previousLine, 0, 0 ), Times.Once() );
+      }
+
+      [Fact]
+      public void Display_PressesDownArrowAtTheEndOfTheFile_DoesNotScroll()
+      {
+         const int height = 25;
+         var downArrowKey = new ConsoleKeyInfo( (char) 80, ConsoleKey.DownArrow, false, false, false );
+         var escKey = new ConsoleKeyInfo( (char) 27, ConsoleKey.Escape, false, false, false );
+         const string fileName = @"C:\Temp\BigFile.cs";
+
+         // Arrange
+
+         var screenControllerMock = new Mock<IScreenController>();
+         screenControllerMock.SetupGet( sc => sc.ScreenHeight ).Returns( height );
+
+         var inputControllerMock = new Mock<IInputController>();
+         inputControllerMock.SetupSequence( ic => ic.ReadKey() )
+            .Returns( downArrowKey )
+            .Returns( escKey );
+
+         var fileReaderMock = new Mock<IFileReader>();
+         fileReaderMock.Setup( fr => fr.ReadNextLine() ).Returns<string>( null );
+
+         // Act
+
+         var pager = new Pager( screenControllerMock.Object, inputControllerMock.Object, fileReaderMock.Object );
+
+         pager.Display( fileName );
+
+         // Assert
+
+         screenControllerMock.Verify( sc => sc.ScrollDown( It.IsAny<int>() ), Times.Never() );
       }
    }
 }

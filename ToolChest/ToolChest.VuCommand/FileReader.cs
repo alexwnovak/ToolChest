@@ -1,33 +1,83 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ToolChest.VuCommand
 {
-   public class FileReader : IFileReader
+   public class FileReader : IFileReader, IDisposable
    {
-      public string[] ReadLines( string fileName, int count )
+      private FileStream _fileStream;
+      private StreamReader _streamReader;
+
+      private readonly List<string> _lines = new List<string>();
+      private bool _readingForward;
+      private int _lineNumber;
+
+      public void Open( string fileName )
       {
+         _fileStream = new FileStream( fileName, FileMode.Open, FileAccess.Read );
+         _streamReader = new StreamReader( _fileStream );
+      }
+
+      public string[] ReadLines( int count )
+      {
+         _readingForward = true;
          var lines = new List<string>();
 
-         using ( var fileStream = new FileStream( fileName, FileMode.Open, FileAccess.Read ) )
+         for ( int index = 0; index < count; index++ )
          {
-            using ( var streamReader = new StreamReader( fileStream ) )
+            string line = _streamReader.ReadLine();
+
+            if ( line != null )
             {
-               for ( int index = 0; index < count; index++ )
-               {
-                  string line = streamReader.ReadLine();
+               _lines.Add( line );
+               lines.Add( line );
+               _lineNumber++;
+            }
 
-                  if ( streamReader.EndOfStream )
-                  {
-                     break;
-                  }
-
-                  lines.Add( line );
-               }
+            if ( _streamReader.EndOfStream )
+            {
+               break;
             }
          }
 
          return lines.ToArray();
+      }
+
+      public string ReadNextLine()
+      {
+         string line = _streamReader.ReadLine();
+
+         _lines.Add( line );
+         _lineNumber++;
+
+         return line;
+      }
+
+      public string ReadPreviousLine()
+      {
+         if ( _readingForward )
+         {
+            _readingForward = false;
+            _lineNumber--;
+         }
+
+         return _lines[--_lineNumber];
+      }
+
+      public void Dispose()
+      {
+         Dispose( true );
+         GC.SuppressFinalize( this );
+      }
+
+      protected virtual void Dispose( bool disposing )
+      {
+         if ( disposing )
+         {
+            _streamReader?.Dispose();
+            _fileStream?.Dispose();
+         }
       }
    }
 }
