@@ -20,6 +20,7 @@ namespace ToolChest.VuCommand
          _screenController.IsCursorVisible = false;
          _screenController.Clear();
 
+         _fileReader.Open( fileName );
          var lines = _fileReader.ReadLines( fileName, _screenController.ScreenHeight - 1 );
 
          _screenController.PrintLines( lines );
@@ -36,7 +37,13 @@ namespace ToolChest.VuCommand
             }
             if ( key.Key == ConsoleKey.DownArrow )
             {
-               _screenController.ScrollDown( 1 );
+               string nextLine = _fileReader.ReadNextLine();
+
+               if ( nextLine != null )
+               {
+                  _screenController.ScrollDown( 1 );
+                  _screenController.Print( nextLine, 0, _screenController.ScreenHeight - 2 );
+               }
             }
          }
 

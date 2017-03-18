@@ -52,16 +52,20 @@ namespace ToolChest.VuCommand.UnitTests
          var buffer = new CharInfo[1];
 
          screenBufferMock.Verify( sb => sb.Render(
-            It.Is<Action<CharInfo[]>>(
-               a => Apply( a, buffer )
-                  .All( ci => ci.AsciiChar == '\0' && ci.Attributes == 7 ) ) ),
-            Times.Once() );
+                                     It.Is<Action<CharInfo[]>>(
+                                        a => Apply( a, buffer )
+                                           .All( ci => ci.AsciiChar == '\0' && ci.Attributes == 7 ) ) ),
+                                  Times.Once() );
       }
 
       [Fact]
       public void PrintLines_HasTwoLines_LinesArePrinted()
       {
-         var lines = new[] { "A", "BB" };
+         var lines = new[]
+         {
+            "A",
+            "BB"
+         };
          CharInfo[] actualBuffer = new CharInfo[5];
 
          // Arrange
@@ -179,7 +183,9 @@ namespace ToolChest.VuCommand.UnitTests
       {
          CharInfo[] actualBuffer = new CharInfo[6];
          actualBuffer[2].AsciiChar = 'A';
+         actualBuffer[2].Attributes = 7;
          actualBuffer[3].AsciiChar = 'B';
+         actualBuffer[3].Attributes = 7;
          actualBuffer[4].AsciiChar = '-';
          actualBuffer[5].AsciiChar = '-';
 
@@ -202,7 +208,9 @@ namespace ToolChest.VuCommand.UnitTests
          actualBuffer[0].AsciiChar.Should().Be( 'A' );
          actualBuffer[1].AsciiChar.Should().Be( 'B' );
          actualBuffer[2].AsciiChar.Should().Be( '\0' );
+         actualBuffer[2].Attributes.Should().Be( 7 );
          actualBuffer[3].AsciiChar.Should().Be( '\0' );
+         actualBuffer[3].Attributes.Should().Be( 7 );
          actualBuffer[4].AsciiChar.Should().Be( '-' );
          actualBuffer[5].AsciiChar.Should().Be( '-' );
       }

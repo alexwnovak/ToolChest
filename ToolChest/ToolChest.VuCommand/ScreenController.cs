@@ -135,7 +135,12 @@ namespace ToolChest.VuCommand
             int length = ScreenWidth * ScreenHeight - ScreenWidth * 2;
 
             Array.Copy( b, sourceIndex, b, 0, length );
-            Array.Clear( b, length, ScreenWidth );
+
+            for ( int index = 0; index < ScreenWidth; index++ )
+            {
+               b[length + index].AsciiChar = '\0';
+               b[length + index].Attributes = 7;
+            }
          } );
       }
    }
