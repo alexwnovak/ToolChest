@@ -37,5 +37,23 @@ namespace ToolChest.VuCommand.UnitTests
             }
          } );
       }
+
+      [Fact]
+      public void ReadNextLine_HasNextLine_ReadsLine()
+      {
+         FileHelper.UseTempFile( "one\r\ntwo", f =>
+         {
+            using ( var fileReader = new FileReader() )
+            {
+               fileReader.Open( f );
+
+               string line = fileReader.ReadNextLine();
+               line.Should().Be( "one" );
+
+               string line2 = fileReader.ReadNextLine();
+               line2.Should().Be( "two" );
+            }
+         } );
+      }
    }
 }
