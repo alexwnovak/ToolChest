@@ -55,5 +55,40 @@ namespace ToolChest.VuCommand.UnitTests
             }
          } );
       }
+
+      [Fact]
+      public void ReadPreviousLine_HasPreviousLine_ReadsLine()
+      {
+         FileHelper.UseTempFile( "one\r\ntwo", f =>
+         {
+            using ( var fileReader = new FileReader() )
+            {
+               fileReader.Open( f );
+               fileReader.ReadLines( 2 );
+
+               string line = fileReader.ReadPreviousLine();
+               line.Should().Be( "one" );
+            }
+         } );
+      }
+
+      [Fact]
+      public void ReadPreviousLine_HasReadPreviouslyAlready_ReadsLine()
+      {
+         FileHelper.UseTempFile( "one\r\ntwo\r\nthree", f =>
+         {
+            using ( var fileReader = new FileReader() )
+            {
+               fileReader.Open( f );
+               fileReader.ReadLines( 3 );
+
+               string line = fileReader.ReadPreviousLine();
+               line.Should().Be( "two" );
+
+               string line2 = fileReader.ReadPreviousLine();
+               line2.Should().Be( "one" );
+            }
+         } );
+      }
    }
 }
