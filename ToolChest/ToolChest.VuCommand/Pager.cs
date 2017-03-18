@@ -48,6 +48,9 @@ namespace ToolChest.VuCommand
             else if ( key.Key == ConsoleKey.UpArrow )
             {
                _screenController.ScrollUp( 1 );
+
+               string previousLine = _fileReader.ReadPreviousLine();
+               _screenController.Print( previousLine, 0, 0 );
             }
          }
 
