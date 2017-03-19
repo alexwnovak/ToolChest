@@ -1,16 +1,23 @@
-﻿using System;
-
-namespace ToolChest.SpaceCommand
+﻿namespace ToolChest.SpaceCommand
 {
    public class AppController
    {
-      public int Start( string[] arguments )
+      private readonly IDiskSpaceReader _diskSpaceReader;
+      private readonly IOutputController _outputController;
+
+      public AppController( IDiskSpaceReader diskSpaceReader, IOutputController outputController )
       {
-         var appController = new AppController();
+         _diskSpaceReader = diskSpaceReader;
+         _outputController = outputController;
+      }
 
       public int Start( string[] arguments )
       {
-         throw new NotImplementedException();
+         long diskSpace = _diskSpaceReader.GetFreeDiskSpace();
+
+         _outputController.PrintFreeDiskSpace( diskSpace );
+
+         return 0;
       }
    }
 }
