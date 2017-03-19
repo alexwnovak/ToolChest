@@ -2,8 +2,11 @@
 {
    internal static class Program
    {
-      private static void Main( string[] args )
+      private static int Main( string[] args )
       {
+         var appController = new AppController( null );
+
+         return appController.Start( args );
       }
    }
 }

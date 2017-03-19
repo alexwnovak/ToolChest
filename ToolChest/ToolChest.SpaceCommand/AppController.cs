@@ -1,10 +1,16 @@
-﻿namespace ToolChest.SpaceCommand
+﻿using System;
+
+namespace ToolChest.SpaceCommand
 {
    public class AppController
    {
       public int Start( string[] arguments )
       {
-         return 0;
+         var appController = new AppController();
+
+      public int Start( string[] arguments )
+      {
+         throw new NotImplementedException();
       }
    }
 }
