@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="DiskSpaceReader.cs" />
     <Compile Include="IDiskSpaceReader.cs" />
     <Compile Include="IOutputController.cs" />
+    <Compile Include="OutputController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
