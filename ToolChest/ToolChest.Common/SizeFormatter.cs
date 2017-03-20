@@ -1,4 +1,4 @@
-﻿namespace ToolChest.LstCommand
+﻿namespace ToolChest.Common
 {
    public static class SizeFormatter
    {

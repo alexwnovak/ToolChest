@@ -1,4 +1,5 @@
 ﻿using System;
+using ToolChest.Common;
 
 namespace ToolChest.SpaceCommand
 {
@@ -10,7 +11,7 @@ namespace ToolChest.SpaceCommand
          Console.Write( "Free space: " );
 
          Console.ForegroundColor = ConsoleColor.Gray;
-         Console.WriteLine( $"{freeDiskSpace} bytes"  );
+         Console.WriteLine( SizeFormatter.Format( freeDiskSpace ) );
 
          Console.WriteLine();
       }

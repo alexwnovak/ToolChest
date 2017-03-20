@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace ToolChest.LstCommand.UnitTests
+namespace ToolChest.Common.UnitTests
 {
    public class SizeFormatterTests
    {
