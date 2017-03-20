@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolChest.SpaceCommand", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolChest.SpaceCommand.UnitTests", "ToolChest.SpaceCommand.UnitTests\ToolChest.SpaceCommand.UnitTests.csproj", "{0EADEC88-15DE-4656-83CF-BDFFCB867C62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolChest.Common", "ToolChest.Common\ToolChest.Common.csproj", "{81749378-7E14-4852-B791-ED40807D8AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolChest.Common.UnitTests", "ToolChest.Common.UnitTests\ToolChest.Common.UnitTests.csproj", "{C9947890-8031-4583-9670-BF7072458FAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{0EADEC88-15DE-4656-83CF-BDFFCB867C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EADEC88-15DE-4656-83CF-BDFFCB867C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EADEC88-15DE-4656-83CF-BDFFCB867C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81749378-7E14-4852-B791-ED40807D8AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81749378-7E14-4852-B791-ED40807D8AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81749378-7E14-4852-B791-ED40807D8AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81749378-7E14-4852-B791-ED40807D8AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9947890-8031-4583-9670-BF7072458FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9947890-8031-4583-9670-BF7072458FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9947890-8031-4583-9670-BF7072458FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9947890-8031-4583-9670-BF7072458FAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
