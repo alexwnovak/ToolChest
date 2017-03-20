@@ -54,5 +54,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToolChest.Common\ToolChest.Common.csproj">
+      <Project>{81749378-7e14-4852-b791-ed40807d8ab0}</Project>
+      <Name>ToolChest.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
